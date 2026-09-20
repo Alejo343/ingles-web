@@ -1,0 +1,230 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum LevelCode {
+  A1
+  A2
+  B1
+  B2
+  C1
+}
+
+enum Skill {
+  GRAMMAR
+  VOCAB
+  TRANSLATION_ES_EN
+  TRANSLATION_EN_ES
+  READING
+  LISTENING
+}
+
+enum AnswerFormat {
+  MULTIPLE_CHOICE
+  FILL_BLANK
+  TEXT_INPUT
+}
+
+enum PassageSkill {
+  READING
+  LISTENING
+}
+
+enum UnitStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  passwordHash   String
+  displayName    String?
+  currentStreak  Int       @default(0)
+  longestStreak  Int       @default(0)
+  lastActiveDate DateTime? @db.Date
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  flashcardReviews FlashcardReview[]
+  unitProgress     UnitProgress[]
+  quizSessions     QuizSession[]
+  studyLogs        StudyActivityLog[]
+}
+
+model Level {
+  id          String    @id @default(cuid())
+  code        LevelCode @unique
+  name        String
+  description String?
+  order       Int
+  units       Unit[]
+}
+
+model Unit {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  levelId          String
+  level            Level    @relation(fields: [levelId], references: [id])
+  title            String
+  description      String?
+  order            Int
+  estimatedMinutes Int      @default(10)
+
+  grammarContent GrammarContent?
+  vocabulary     VocabularyItem[]
+  passages       Passage[]
+  questions      Question[]
+  progress       UnitProgress[]
+  quizSessions   QuizSession[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([levelId, order])
+}
+
+model GrammarContent {
+  id            String @id @default(cuid())
+  unitId        String @unique
+  unit          Unit   @relation(fields: [unitId], references: [id])
+  title         String
+  explanationMd String @db.Text
+  examples      Json
+}
+
+model VocabularyItem {
+  id           String  @id @default(cuid())
+  slug         String  @unique
+  unitId       String
+  unit         Unit    @relation(fields: [unitId], references: [id])
+  termEn       String
+  termEs       String
+  exampleEn    String?
+  exampleEs    String?
+  partOfSpeech String?
+  imageUrl     String?
+  audioUrl     String?
+  order        Int
+
+  flashcardReviews FlashcardReview[]
+
+  @@index([unitId, order])
+}
+
+model FlashcardReview {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  vocabularyItemId String
+  vocabularyItem   VocabularyItem @relation(fields: [vocabularyItemId], references: [id])
+
+  easeFactor     Float     @default(2.5)
+  intervalDays   Int       @default(0)
+  repetitions    Int       @default(0)
+  dueDate        DateTime  @default(now())
+  lastReviewedAt DateTime?
+  lapses         Int       @default(0)
+
+  @@unique([userId, vocabularyItemId])
+  @@index([userId, dueDate])
+}
+
+model Passage {
+  id       String       @id @default(cuid())
+  slug     String       @unique
+  unitId   String
+  unit     Unit         @relation(fields: [unitId], references: [id])
+  skill    PassageSkill
+  title    String
+  bodyEn   String       @db.Text
+  audioUrl String?
+  order    Int
+
+  questions Question[]
+
+  @@index([unitId, order])
+}
+
+model Question {
+  id           String       @id @default(cuid())
+  slug         String       @unique
+  unitId       String
+  unit         Unit         @relation(fields: [unitId], references: [id])
+  passageId    String?
+  passage      Passage?     @relation(fields: [passageId], references: [id])
+  skill        Skill
+  answerFormat AnswerFormat
+  prompt       String       @db.Text
+  options      Json?
+  correctAnswer     String
+  acceptableAnswers Json?
+  explanation  String?
+  order        Int
+
+  userAnswers UserAnswer[]
+
+  @@index([unitId, order])
+  @@index([passageId, order])
+}
+
+model QuizSession {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  unitId       String
+  unit         Unit      @relation(fields: [unitId], references: [id])
+  startedAt    DateTime  @default(now())
+  completedAt  DateTime?
+  scoreCorrect Int       @default(0)
+  scoreTotal   Int       @default(0)
+
+  answers UserAnswer[]
+
+  @@index([userId, unitId])
+}
+
+model UserAnswer {
+  id          String      @id @default(cuid())
+  sessionId   String
+  session     QuizSession @relation(fields: [sessionId], references: [id])
+  questionId  String
+  question    Question    @relation(fields: [questionId], references: [id])
+  givenAnswer String
+  isCorrect   Boolean
+  answeredAt  DateTime    @default(now())
+
+  @@index([sessionId])
+}
+
+model UnitProgress {
+  id                   String     @id @default(cuid())
+  userId               String
+  user                 User       @relation(fields: [userId], references: [id])
+  unitId               String
+  unit                 Unit       @relation(fields: [unitId], references: [id])
+  status               UnitStatus @default(NOT_STARTED)
+  grammarViewed        Boolean    @default(false)
+  vocabIntroducedCount Int        @default(0)
+  bestQuizScore        Int?
+  readingCompleted     Boolean    @default(false)
+  completedAt          DateTime?
+  updatedAt            DateTime   @updatedAt
+
+  @@unique([userId, unitId])
+}
+
+model StudyActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  date      DateTime @db.Date
+  createdAt DateTime @default(now())
+
+  @@unique([userId, date])
+}

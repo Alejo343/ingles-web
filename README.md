@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inglés
 
-## Getting Started
+Web personal para estudiar y repasar inglés (A1-C1, por ahora A1/A2), con progreso persistente y repaso espaciado de vocabulario.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Next.js (App Router) + TypeScript · Tailwind + shadcn/ui · Prisma + PostgreSQL · autenticación propia (bcryptjs + jose) · contenido pedagógico versionado en `content/` y sincronizado a la DB.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Desarrollo local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Crear la base de datos local (PostgreSQL) y configurar `.env.local` (ver `.env.example`).
+2. `npm install`
+3. `npx prisma migrate deploy` (o `npx prisma migrate dev` si se van a crear migraciones nuevas)
+4. `npx tsx scripts/sync-content.ts` — sincroniza el contenido de `content/` a la base de datos.
+5. `npx tsx scripts/create-user.ts <email> <password> [nombre]` — crea un usuario.
+6. `npm run dev`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Añadir contenido nuevo
 
-## Learn More
+Cada unidad vive en `content/levels/<nivel>/units/<slug>.ts`, tipada y validada con Zod (`content/schema.ts`). Tras añadir o editar una unidad, agregarla al `index.ts` del nivel y correr `npx tsx scripts/sync-content.ts` (idempotente, usa los `slug` como clave natural).
 
-To learn more about Next.js, take a look at the following resources:
+## Despliegue
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ver `scripts/deploy.sh` para el flujo de redeploy en el VPS (git pull, migraciones, sync de contenido, build, reinicio con PM2).

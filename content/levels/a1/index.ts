@@ -11,6 +11,8 @@ import { unit as can } from "./units/can";
 import { unit as haveGot } from "./units/have-got";
 import { unit as prepositionsPlace } from "./units/prepositions-place";
 import { unit as presentContinuous } from "./units/present-continuous";
+import { unit as questions } from "./units/questions";
+import { unit as imperativesConnectors } from "./units/imperatives-connectors";
 
 export { meta };
 
@@ -26,4 +28,6 @@ export const units: UnitContent[] = [
   haveGot,
   prepositionsPlace,
   presentContinuous,
+  questions,
+  imperativesConnectors,
 ];

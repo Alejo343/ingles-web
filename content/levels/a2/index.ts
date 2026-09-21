@@ -10,6 +10,7 @@ import { unit as countableUncountable } from "./units/countable-uncountable";
 import { unit as adverbsFrequency } from "./units/adverbs-frequency";
 import { unit as objectPronouns } from "./units/object-pronouns";
 import { unit as presentPerfect } from "./units/present-perfect";
+import { unit as connectors } from "./units/connectors";
 
 export { meta };
 
@@ -24,4 +25,5 @@ export const units: UnitContent[] = [
   adverbsFrequency,
   objectPronouns,
   presentPerfect,
+  connectors,
 ];

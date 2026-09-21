@@ -4,9 +4,9 @@ export const unit: UnitContent = {
   slug: "a2-present-perfect",
   levelCode: "A2",
   title: "Presente perfecto (introducción)",
-  description: "Have/has + participio, para hablar de experiencias con ever, never, already y yet.",
+  description: "Have/has + participio, para hablar de experiencias con ever, never, already, yet, just, for y since.",
   order: 10,
-  estimatedMinutes: 18,
+  estimatedMinutes: 20,
 
   grammar: {
     title: "Presente perfecto: have/has + participio",
@@ -34,16 +34,39 @@ export const unit: UnitContent = {
 - **already** (ya) — en frases afirmativas: *I have already finished my homework.*
 - **yet** (todavía / ya) — en negativas y preguntas, al final de la frase: *I haven't finished yet. Have you finished yet?*
 
+## Just (acción muy reciente)
+
+**Just** indica que algo pasó hace muy poco tiempo. Va entre "have/has" y el participio:
+
+- *I have **just** finished my homework.* (Acabo de terminar mi tarea.)
+- *She has **just** arrived.* (Ella acaba de llegar.)
+
+## For / Since (duración)
+
+Se usan para decir **cuánto tiempo lleva** pasando algo que empezó en el pasado y sigue en el presente.
+
+- **for** + un **periodo** de tiempo: *for two years, for a long time, for five minutes*
+- **since** + un **punto** específico en el tiempo: *since 2020, since Monday, since I was a child*
+
+Ejemplos:
+
+- *I have lived here **for** three years.* (Llevo viviendo aquí tres años.)
+- *I have lived here **since** 2021.* (Vivo aquí desde 2021.)
+- *How long have you known her?* — *I've known her **for** ten years.*
+
 ## Present Perfect vs. Past Simple
 
-- **Present Perfect**: no importa cuándo, solo que pasó alguna vez → *I have visited Paris.*
-- **Past Simple**: momento específico del pasado → *I visited Paris in 2019.*`,
+- **Present Perfect**: no importa cuándo, solo que pasó alguna vez, o una situación que continúa → *I have visited Paris. I have lived here for three years.*
+- **Past Simple**: momento específico del pasado, ya terminado → *I visited Paris in 2019.*`,
     examples: [
       { en: "Have you ever been to Europe?", es: "¿Alguna vez has estado en Europa?" },
       { en: "I have never tried Thai food.", es: "Nunca he probado la comida tailandesa." },
       { en: "She has already finished the report.", es: "Ella ya terminó el informe." },
       { en: "We haven't seen that movie yet.", es: "Todavía no hemos visto esa película." },
       { en: "He has lived in three different countries.", es: "Él ha vivido en tres países diferentes." },
+      { en: "I have just finished my homework.", es: "Acabo de terminar mi tarea." },
+      { en: "I have lived here for three years.", es: "Llevo viviendo aquí tres años." },
+      { en: "I have lived here since 2021.", es: "Vivo aquí desde 2021." },
     ],
   },
 
@@ -138,6 +161,33 @@ export const unit: UnitContent = {
       partOfSpeech: "adverb",
       order: 10,
     },
+    {
+      slug: "a2-pp-just",
+      termEn: "just",
+      termEs: "acabar de / recién",
+      exampleEn: "I have just finished my homework.",
+      exampleEs: "Acabo de terminar mi tarea.",
+      partOfSpeech: "adverb",
+      order: 11,
+    },
+    {
+      slug: "a2-pp-for",
+      termEn: "for (+ periodo)",
+      termEs: "durante / desde hace",
+      exampleEn: "I have lived here for three years.",
+      exampleEs: "Llevo viviendo aquí tres años.",
+      partOfSpeech: "preposition",
+      order: 12,
+    },
+    {
+      slug: "a2-pp-since",
+      termEn: "since (+ punto en el tiempo)",
+      termEs: "desde",
+      exampleEn: "I have lived here since 2021.",
+      exampleEs: "Vivo aquí desde 2021.",
+      partOfSpeech: "preposition",
+      order: 13,
+    },
   ],
 
   questions: [
@@ -207,6 +257,32 @@ export const unit: UnitContent = {
       prompt: "Traduce: 'Have you ever eaten sushi?'",
       correctAnswer: "¿Alguna vez has comido sushi?",
       order: 8,
+    },
+    {
+      slug: "a2-pp-q9",
+      skill: "GRAMMAR",
+      answerFormat: "MULTIPLE_CHOICE",
+      prompt: "I have lived here ___ three years. (periodo de tiempo)",
+      options: ["for", "since", "just"],
+      correctAnswer: "for",
+      order: 9,
+    },
+    {
+      slug: "a2-pp-q10",
+      skill: "GRAMMAR",
+      answerFormat: "MULTIPLE_CHOICE",
+      prompt: "I have lived here ___ 2021. (punto específico en el tiempo)",
+      options: ["for", "since", "ever"],
+      correctAnswer: "since",
+      order: 10,
+    },
+    {
+      slug: "a2-pp-q11",
+      skill: "GRAMMAR",
+      answerFormat: "FILL_BLANK",
+      prompt: "She has ___ arrived. (acción muy reciente)",
+      correctAnswer: "just",
+      order: 11,
     },
   ],
 

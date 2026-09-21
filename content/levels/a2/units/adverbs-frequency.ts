@@ -3,14 +3,16 @@ import type { UnitContent } from "../../../schema";
 export const unit: UnitContent = {
   slug: "a2-adverbs-frequency",
   levelCode: "A2",
-  title: "Adverbios de frecuencia",
-  description: "Always, usually, often, sometimes, never... y dónde colocarlos en la frase.",
+  title: "Adverbios de frecuencia y de modo",
+  description: "Always, usually, never... para decir con qué frecuencia, y quickly, well, carefully... para decir cómo.",
   order: 8,
-  estimatedMinutes: 10,
+  estimatedMinutes: 14,
 
   grammar: {
-    title: "Adverbios de frecuencia",
-    explanationMd: `Indican **con qué frecuencia** pasa algo, de más a menos frecuente:
+    title: "Adverbios de frecuencia y de modo",
+    explanationMd: `## Adverbios de frecuencia
+
+Indican **con qué frecuencia** pasa algo, de más a menos frecuente:
 
 | Adverbio | Significado | % aproximado |
 |---|---|---|
@@ -21,7 +23,7 @@ export const unit: UnitContent = {
 | rarely / seldom | rara vez | ~10% |
 | never | nunca | 0% |
 
-## Posición en la frase
+### Posición en la frase
 
 Van **antes del verbo principal**, pero **después de "to be"**.
 
@@ -29,17 +31,38 @@ Van **antes del verbo principal**, pero **después de "to be"**.
 - Después de "to be": *She **is** usually tired on Mondays.*
 - Con verbos auxiliares (can, have...): *I **can** never remember his name.*
 
-## Preguntas con "how often"
+### Preguntas con "how often"
 
 Se usa **how often** para preguntar por la frecuencia: *How often do you exercise?* — *I exercise three times a week.*
 
-Otras expresiones de frecuencia: *every day, once a week, twice a month, three times a year.*`,
+Otras expresiones de frecuencia: *every day, once a week, twice a month, three times a year.*
+
+## Adverbios de modo
+
+Indican **cómo** se hace algo. La mayoría se forman con **adjetivo + -ly**:
+
+| Adjetivo | Adverbio |
+|---|---|
+| quick | quick**ly** |
+| careful | careful**ly** |
+| slow | slow**ly** |
+| happy | happi**ly** (-y → -ily) |
+
+Irregulares comunes: **good → well**, **fast → fast**, **hard → hard** (no cambian con -ly).
+
+- *She drives carefully.* (Ella conduce con cuidado.)
+- *He speaks English well.* (Él habla inglés bien.)
+- *Don't drive so fast!* (¡No conduzcas tan rápido!)
+
+A diferencia de los adverbios de frecuencia, los de modo suelen ir **después del verbo** (o del objeto): *He did the exercise quickly*, no antes.`,
     examples: [
       { en: "I always brush my teeth before bed.", es: "Siempre me cepillo los dientes antes de dormir." },
       { en: "She is usually late for class.", es: "Ella normalmente llega tarde a clase." },
       { en: "We sometimes eat out on weekends.", es: "A veces comemos fuera los fines de semana." },
       { en: "He never drinks alcohol.", es: "Él nunca toma alcohol." },
       { en: "How often do you go to the gym?", es: "¿Con qué frecuencia vas al gimnasio?" },
+      { en: "She drives very carefully.", es: "Ella conduce con mucho cuidado." },
+      { en: "He speaks English very well.", es: "Él habla inglés muy bien." },
     ],
   },
 
@@ -134,6 +157,42 @@ Otras expresiones de frecuencia: *every day, once a week, twice a month, three t
       partOfSpeech: "noun",
       order: 10,
     },
+    {
+      slug: "a2-af-carefully",
+      termEn: "carefully",
+      termEs: "con cuidado",
+      exampleEn: "She drives very carefully.",
+      exampleEs: "Ella conduce con mucho cuidado.",
+      partOfSpeech: "adverb",
+      order: 11,
+    },
+    {
+      slug: "a2-af-quickly",
+      termEn: "quickly",
+      termEs: "rápidamente",
+      exampleEn: "He finished the exercise quickly.",
+      exampleEs: "Él terminó el ejercicio rápidamente.",
+      partOfSpeech: "adverb",
+      order: 12,
+    },
+    {
+      slug: "a2-af-well",
+      termEn: "well",
+      termEs: "bien",
+      exampleEn: "He speaks English very well.",
+      exampleEs: "Él habla inglés muy bien.",
+      partOfSpeech: "adverb",
+      order: 13,
+    },
+    {
+      slug: "a2-af-hard",
+      termEn: "hard",
+      termEs: "duro / con esfuerzo",
+      exampleEn: "She works hard every day.",
+      exampleEs: "Ella trabaja duro todos los días.",
+      partOfSpeech: "adverb",
+      order: 14,
+    },
   ],
 
   questions: [
@@ -204,6 +263,23 @@ Otras expresiones de frecuencia: *every day, once a week, twice a month, three t
       prompt: "¿Cómo se dice 'rara vez' en inglés?",
       correctAnswer: "rarely",
       order: 8,
+    },
+    {
+      slug: "a2-af-q9",
+      skill: "GRAMMAR",
+      answerFormat: "TEXT_INPUT",
+      prompt: "Escribe el adverbio de modo de 'careful'.",
+      correctAnswer: "carefully",
+      order: 9,
+    },
+    {
+      slug: "a2-af-q10",
+      skill: "GRAMMAR",
+      answerFormat: "MULTIPLE_CHOICE",
+      prompt: "He speaks English very ___. (irregular: good)",
+      options: ["good", "well", "goodly"],
+      correctAnswer: "well",
+      order: 10,
     },
   ],
 

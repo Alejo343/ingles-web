@@ -13,7 +13,13 @@ const bodySchema = z.object({
 });
 
 function normalize(value: string): string {
-  return value.trim().toLowerCase();
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // quita tildes/diacríticos (á->a, ñ->n, etc.)
+    .replace(/[.,!?¡¿]/g, "") // ignora puntuación final
+    .replace(/\s+/g, " ");
 }
 
 export async function POST(request: NextRequest) {

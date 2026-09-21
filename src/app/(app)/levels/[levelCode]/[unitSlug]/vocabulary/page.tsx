@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { requireCurrentUser } from "@/lib/auth/current-user";
 import { FlashcardViewer } from "@/components/flashcards/flashcard-viewer";
+import { BackLink } from "@/components/ui/back-link";
 
 export default async function VocabularyPage({
   params,
@@ -28,6 +29,8 @@ export default async function VocabularyPage({
 
   return (
     <div className="space-y-6">
+      <BackLink href={`/levels/${levelCode}/${unitSlug}`}>{unit.title}</BackLink>
+
       <div>
         <h1 className="text-2xl font-semibold">Vocabulario</h1>
         <p className="text-muted-foreground">{unit.title}</p>

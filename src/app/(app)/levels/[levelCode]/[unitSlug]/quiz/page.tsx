@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { requireCurrentUser } from "@/lib/auth/current-user";
 import { QuizRunner } from "@/components/quiz/quiz-runner";
+import { BackLink } from "@/components/ui/back-link";
 
 export default async function QuizPage({
   params,
@@ -29,6 +30,8 @@ export default async function QuizPage({
 
   return (
     <div className="space-y-6">
+      <BackLink href={`/levels/${levelCode}/${unitSlug}`}>{unit.title}</BackLink>
+
       <div>
         <h1 className="text-2xl font-semibold">Quiz</h1>
         <p className="text-muted-foreground">{unit.title}</p>

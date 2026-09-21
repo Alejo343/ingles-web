@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { BackLink } from "@/components/ui/back-link";
 import type { LevelCode } from "@prisma/client";
 
 const STATUS_ICON = {
@@ -39,6 +40,8 @@ export default async function LevelUnitsPage({
 
   return (
     <div className="space-y-6">
+      <BackLink href="/levels">Niveles</BackLink>
+
       <div>
         <h1 className="text-2xl font-semibold">{level.name}</h1>
         <p className="text-muted-foreground">{level.description}</p>

@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { requireCurrentUser } from "@/lib/auth/current-user";
 import { QuizRunner } from "@/components/quiz/quiz-runner";
 import { Card, CardContent } from "@/components/ui/card";
+import { BackLink } from "@/components/ui/back-link";
 
 export default async function ReadingPage({
   params,
@@ -35,6 +36,8 @@ export default async function ReadingPage({
 
   return (
     <div className="space-y-6">
+      <BackLink href={`/levels/${levelCode}/${unitSlug}`}>{unit.title}</BackLink>
+
       <div>
         <h1 className="text-2xl font-semibold">{passage.title}</h1>
         <p className="text-muted-foreground">

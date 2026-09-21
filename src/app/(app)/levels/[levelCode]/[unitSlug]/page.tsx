@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { BackLink } from "@/components/ui/back-link";
 
 export default async function UnitOverviewPage({
   params,
@@ -75,6 +76,8 @@ export default async function UnitOverviewPage({
 
   return (
     <div className="space-y-6">
+      <BackLink href={`/levels/${levelCode}`}>Unidades</BackLink>
+
       <div>
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-semibold">{unit.title}</h1>

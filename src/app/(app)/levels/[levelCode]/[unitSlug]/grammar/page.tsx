@@ -6,13 +6,14 @@ import { requireCurrentUser } from "@/lib/auth/current-user";
 import { markGrammarViewed } from "@/lib/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { BackLink } from "@/components/ui/back-link";
 
 export default async function GrammarPage({
   params,
 }: {
-  params: Promise<{ unitSlug: string }>;
+  params: Promise<{ levelCode: string; unitSlug: string }>;
 }) {
-  const { unitSlug } = await params;
+  const { levelCode, unitSlug } = await params;
   const user = await requireCurrentUser();
 
   const unit = await db.unit.findUnique({
@@ -28,6 +29,8 @@ export default async function GrammarPage({
 
   return (
     <div className="space-y-6">
+      <BackLink href={`/levels/${levelCode}/${unitSlug}`}>{unit.title}</BackLink>
+
       <h1 className="text-2xl font-semibold">{unit.grammarContent.title}</h1>
 
       <Card>
